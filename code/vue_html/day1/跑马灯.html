@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{info}}</p>
+        <input type="button" value="开始" v-on:click="go">
+        <input type="button" value="停止" v-on:click="stop">
+    </div>
+    
+    <script>
+        var vm  = new Vue({
+            el:"#app",
+            data: {
+                info:"冲冲冲冲冲冲 ->>>>>>>>.冲冲冲",
+                intervalId: null,
+            },
+            methods: {
+                go(){
+                    if (this.intervalId !=null) {
+                        return;
+                    }
+                    // 开始定时器
+                    this.intervalId = setInterval(()=>{
+                        this.info = this.info.substring(1)+this.info.substring(0,1)
+                    },400)
+                },
+                stop(){
+                    clearInterval(this.intervalId)
+                    this.intervalId = null
+                }
+            }
+        })    
+    
+    </script>
+</body>
+</html>

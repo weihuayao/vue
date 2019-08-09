@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap-3.3.7.css">
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    id:
+                    <input type="text" class="form-control" v-model="id">
+                </label>
+
+                <label>
+                    name:
+                    <input type="text" class="form-control" v-model="name">
+                </label>
+
+                <input type="button" value="添加" class="btn btn-primary" @click="add" @keyup.enter="add">
+
+
+                <label>
+                    名称搜索:
+                    <input type="text" class="form-control" v-model="keywords" 
+                        v-focus 
+                        v-color="'red'"
+                        v-font-weight="900">
+                </label>
+            </div>
+        </div>
+
+
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>ctime</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keywords) " :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.ctime | dataFormat("")}}</td>
+                    <td>
+                        <input type="button" value="删除" class="btn btn-danger" @click.prevent="del(id)">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+    <script>
+
+        Vue.filter('dataFormat', function (input, pattern = '') {
+            var dt = new Date(input);
+            // 获取年月日
+            var y = dt.getFullYear();
+            var m = (dt.getMonth() + 1).toString().padStart(2, '0');
+            var d = dt.getDate().toString().padStart(2, '0')
+            // 如果 传递进来的字符串类型，转为小写之后，等于 yyyy-mm-dd，那么就返回 年-月-日
+            // 否则，就返回  年-月-日 时：分：秒
+            if (pattern.toLowerCase() === 'yyyy-mm-dd') {
+                return `${y}-${m}-${d}`;
+            } else {
+                // 获取时分秒
+                var hh = dt.getHours().toString().padStart(2, '0');
+                var mm = dt.getMinutes().toString().padStart(2, '0');
+                var ss = dt.getSeconds().toString().padStart(2, '0');
+                return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+            }
+        });
+
+
+        //定义全局自定义指令，定义时不
+        Vue.directive("focus", {
+            inserted: function (el) { // inserted 表示被绑定元素插入父节点时调用
+                el.focus();
+            },
+        })
+
+        // new 出来的对象是MVVM的 VM调度者
+        var vm = new Vue({
+            el: "#app",
+            // data -> MVVM 中的M
+            data: {
+                id: "",
+                name: "",
+                keywords: "",
+                list: [
+                    { id: 1, name: "bens", ctime: new Date() },
+                    { id: 2, name: "BWM", ctime: new Date() },
+                    { id: 3, name: "大众", ctime: new Date() }
+                ]
+            },
+            methods: {
+                add() {
+                    var car = { id: this.id, name: this.name, ctime: new Date() }
+                    this.list.push(car)
+                    this.id = this.name = " "
+                },
+                // del(id){
+                //     this.list.some((item ,i)=>{
+                //         if(item.id === id){
+                //             this.list.splice(i,1)
+
+                //             return true;
+                //         }
+                //     })
+                // }
+                del(id) {
+                    var index = this.list.findIndex(item => {
+                        if (item.id === id) {
+                            return true;
+                        }
+                    })
+                    this.list.splice(index, 1)
+                },
+                search(keywords) {
+                    return this.list.filter(item => {
+                        if (item.name.includes(keywords)) {
+                            return item;
+                        }
+                    })
+                }
+
+            },
+            directives: {
+                color: { // 为元素设置指定的字体颜色
+                    bind(el, binding) {
+                        el.style.color = binding.value;
+                    }
+                },
+                'font-weight': function (el, binding2) { // 自定义指令的简写形式，等同于定义了 bind 和 update 两个钩子函数
+                    el.style.fontWeight = binding2.value;
+                }
+
+            }
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>

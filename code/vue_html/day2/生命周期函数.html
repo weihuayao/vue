@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+
+
+</head>
+
+<body>
+    <!-- div中的内容 对应 MVVM中的 V -->
+    <div id="app">
+        <p>{{msg}}</p>
+    </div>
+
+    <script>
+        // new 出来的对象是MVVM的 VM调度者
+        var vm = new Vue({
+            el: "#app",
+            // data -> MVVM 中的M
+            data: {
+                msg: "hello world"
+            },
+            methods: {
+                show(){
+                    console.log("执行了show方法")
+                }
+            },
+            beforeCreate() {  //data  和 methods 都没有初始化 
+            },
+            created() {  //data  和 methods初始化完成可以调用 
+            },
+            beforeMount() {  //模版已经编译完成 ，但是尚未挂载到页面
+            },
+            mounted() { //页面挂载完成 
+            },
+            beforeUpdate() {
+            },
+            updated() {
+            },
+            beforeDestroy() {
+            },
+            destroyed() {
+                
+            },
+
+        })
+    </script>
+</body>
+
+</html>

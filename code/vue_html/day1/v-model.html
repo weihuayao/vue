@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+
+
+</head>
+
+<body>
+    <!-- div中的内容 对应 MVVM中的 V -->
+    <div id="app">
+        <p>{{msg}}</p>
+        <!-- v-bind 只能从 M 绑定 V  无法双向绑定 -->
+        <!-- <input type="text" v-bind:value="msg" style="width: 100%;"> -->
+
+        
+        <input type="text" v-model:value="msg" style="width: 100%;">
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "xxxxxxxx  wdnmd xxxxxxx"
+            },
+        })
+
+    </script>
+</body>
+
+</html>

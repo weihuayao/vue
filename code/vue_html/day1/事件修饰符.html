@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+    <style>
+        .inner {
+            background: yellow;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- .stop 阻止冒泡 -->
+    <!-- <div id="app">
+       <div class="inner" @click="divHandler">
+           <input type="button" value="点击" @click.stop ="btnHandler"> 
+       </div>
+    </div> -->
+
+    <!-- 阻止默认事件 -->
+    <!-- <a href="http://www.baidu.com" @click:prevent>baidu</a> -->
+
+    <!--.capture捕获事件 -->
+    <div id="app">
+        <div class="inner" @click.capture="divHandler">
+            <input type="button" value="点击" @click.stop="btnHandler">
+        </div>
+    </div>
+
+    <!--  -->
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            // data -> MVVM 中的M
+            data: {
+                msg: "hello world"
+            },
+            methods: {
+                divHandler() {
+                    console.log("div")
+                },
+                btnHandler() {
+                    console.log("btn")
+                }
+            },
+        })
+
+    </script>
+</body>
+
+</html>
