@@ -12,3 +12,7 @@ vue基础语法和概念。
 
 将todolist使用vuex进行传值管理。对比原生vue传值更加深刻理解vuex
 
+todolist 风格如下：
+
+![todolist](assets/todolist.jpg)
+
