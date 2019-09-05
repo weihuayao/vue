@@ -1,0 +1,9 @@
+export const ADD_LIST = 'addList';
+export const DELETE_LIST = 'deleteList';
+export const ALL = 'all';
+export const UN_FINISHED = 'unFinished';
+export const FINISHED = 'finished';
+export const CHANGE = 'change';
+export const CHECKED_ONE = 'checkedOne';
+export const CHECKED_ALL = 'checkedAll';
+export const DELETE_ALL = 'deleteAll';
